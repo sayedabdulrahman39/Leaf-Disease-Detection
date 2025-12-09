@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaf Disease Analyzer — Frontend</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- falling leaves layer -->
+  <div id="leaf-layer" aria-hidden="true"></div>
+
+  <div class="container">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🌿</div>
+        <div>
+          <h1>Leaf Disease Analyzer</h1>
+          <p class="subtitle">Upload a leaf image or use your phone camera — model will detect disease.</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme" aria-pressed="false">
+          <span class="moon">🌙</span><span class="sun" style="display:none">☀️</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1) Upload Image</h2>
+        <input id="fileInput" type="file" accept="image/*" />
+        <div class="preview" id="uploadPreview">
+          <img id="uploadedImg" src="" alt="" />
+          <div class="preview-empty">Choose or drop an image</div>
+        </div>
+        <div class="controls">
+          <button id="uploadAnalyzeBtn" class="btn primary">Analyze Uploaded Image</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2) Use Camera</h2>
+        <div class="camera-row">
+          <video id="cam" autoplay playsinline></video>
+          <canvas id="snapCanvas" width="224" height="224" style="display:none"></canvas>
+        </div>
+        <div class="controls">
+          <button id="startCamBtn" class="btn">Start Camera</button>
+          <button id="snapBtn" class="btn primary">Capture & Analyze</button>
+          <button id="stopCamBtn" class="btn ghost">Stop Camera</button>
+        </div>
+        <div class="preview" id="camPreview">
+          <img id="camImg" src="" alt="" />
+          <div class="preview-empty">Camera snapshot will appear here</div>
+        </div>
+      </section>
+
+      <section class="card result-card">
+        <h2>Result</h2>
+        <div id="resultArea">
+          <p class="hint">No analysis yet.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Built for college mini-project — frontend prototype</small>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+:root{
+  --bg-1: #f6fffb;
+  --bg-2: #eef9f7;
+  --card: #ffffff;
+  --accent: #2b7a78;
+  --accent-2: #6cc3b0;
+  --muted: #6c757d;
+  --shadow: 0 10px 30px rgba(16,24,40,0.08);
+  --radius: 14px;
+  --maxw: 980px;
+  --leaf-color-1: #2b7a78;
+  --leaf-color-2: #6cc3b0;
+  --leaf-opacity: 0.95;
+  --text: #0f1724;
+  --card-border: rgba(15,23,36,0.04);
+}
+
+/* dark theme */
+:root.dark {
+  --bg-1: #071317;
+  --bg-2: #072827;
+  --card: rgba(10,20,20,0.75);
+  --accent: #73d6b6;
+  --accent-2: #2bb48f;
+  --muted: #bcd8d0;
+  --shadow: 0 10px 30px rgba(0,0,0,0.6);
+  --leaf-color-1: #aaf0d0;
+  --leaf-color-2: #63e0a3;
+  --leaf-opacity: 0.95;
+  --text: #e6fff7;
+  --card-border: rgba(255,255,255,0.06);
+}
+
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, Arial, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--text);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  min-height:100vh;
+  padding:40px 20px;
+}
+
+/* leaf layer */
+#leaf-layer{
+  position:fixed;
+  left:0; top:0; right:0; bottom:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+
+/* leaf element */
+.leaf {
+  position:absolute;
+  width:36px;
+  height:36px;
+  opacity:var(--leaf-opacity);
+  transform-origin:center;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.08));
+}
+.leaf svg { width:100%; height:100%; display:block; }
+
+/* fall & sway keyframes */
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity:0; }
+  10% { opacity:1; }
+  50% { transform: translateY(45vh) rotate(180deg) translateX(20vw); }
+  100% { transform: translateY(110vh) rotate(360deg) translateX(-10vw); opacity:0; }
+}
+@keyframes sway {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(12px) rotate(15deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+/* container */
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  position:relative;
+  z-index:1;
+}
+
+/* header */
+.site-header{
+  margin: 6px 0 18px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{ display:flex; gap:12px; align-items:center; }
+.logo{
+  width:64px; height:64px; border-radius:14px;
+  background: linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-size:28px; box-shadow:var(--shadow);
+}
+.site-header h1{ margin:0; font-size:20px; }
+.subtitle{ margin:4px 0 0; color:var(--muted); font-size:13px; }
+
+/* header right */
+.header-right{ display:flex; gap:8px; align-items:center; }
+.icon-btn{
+  background:transparent; border:1px solid transparent; padding:8px; border-radius:10px; cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:16px;
+  transition: background .18s ease, transform .12s ease;
+}
+.icon-btn:hover{ transform:translateY(-3px); background:rgba(255,255,255,0.03); }
+:root.dark .icon-btn .moon{ display:none; }
+:root.dark .icon-btn .sun{ display:inline-block; }
+
+/* layout */
+main{ display:grid; gap:18px; grid-template-columns: 1fr; }
+
+/* card */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), var(--card));
+  padding:18px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--card-border);
+  position:relative;
+}
+
+/* headings */
+.card h2{ margin:0 0 8px; font-size:18px; color:var(--text); }
+
+/* controls & buttons */
+.controls{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;}
+.btn{
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(15,23,36,0.06);
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition: transform .14s ease, box-shadow .14s ease, background .12s ease, color .12s ease;
+}
+.btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 24px rgba(16,24,40,0.06); }
+.btn.primary{
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:white;
+  border: none;
+  box-shadow: 0 8px 22px rgba(43,122,120,0.12);
+}
+.btn.ghost{
+  background:transparent; color:var(--accent); border:1px solid rgba(43,122,120,0.12); box-shadow:none; font-weight:800;
+}
+.btn[disabled]{ opacity:.6; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* preview */
+.preview{ margin-top:12px; min-height:120px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#fbfffd,#f8fffb); border-radius:8px; padding:10px; position:relative; }
+.preview img{ max-width:100%; max-height:300px; border-radius:8px; object-fit:contain; box-shadow: 0 6px 18px rgba(16,24,40,0.05); }
+.preview-empty{ position:absolute; color:var(--muted); font-size:14px; pointer-events:none; }
+
+/* camera */
+.camera-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+video#cam{ width:320px; height:240px; background:#000; border-radius:12px; object-fit:cover; border:1px solid rgba(0,0,0,0.06); }
+
+/* result card */
+.result-card { display:flex; flex-direction:column; gap:12px; }
+#resultArea{ padding:12px; border-radius:8px; background:linear-gradient(180deg,#ffffff,#fbfffb); min-height:80px; border:1px solid rgba(15,23,36,0.03); }
+.result-row{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+.result-title{ font-weight:700; font-size:16px; }
+.result-ok{ color: #065f46; font-weight:800; }
+.result-bad{ color:#b91c1c; font-weight:800; }
+
+/* confidence */
+.confidence { width:220px; height:12px; background:#eefaf6; border-radius:999px; overflow:hidden; border:1px solid rgba(0,0,0,0.03); }
+.confidence > i { display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); width:0; transition:width .6s ease; }
+
+/* tiny spinner */
+.tiny-spinner{ border-radius:50%; border:3px solid rgba(0,0,0,0.08); border-top-color:var(--accent); width:18px; height:18px; animation:spin .9s linear infinite; }
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+/* responsive */
+@media (max-width:820px){
+  video#cam{ width:100%; height:auto; }
+  .confidence{ width:100%; }
+}
+
+/* dark tweaks */
+:root.dark .preview { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); }
+:root.dark #resultArea { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); }
